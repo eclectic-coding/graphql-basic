@@ -9,7 +9,7 @@ const typeDefs = `
     price: Float!
     releaseYear: Int
     rating: Float
-    inStock: Boolean!
+    Stock: Boolean!
   }
 `
 
@@ -28,7 +28,7 @@ const resolvers = {
     rating () {
       return null
     },
-    inStock () {
+    Stock () {
       return true
     }
   }
