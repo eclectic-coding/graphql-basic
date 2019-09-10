@@ -1,35 +1,55 @@
 import { GraphQLServer } from 'graphql-yoga'
 
-// Scalar types - String, Boolean, Integers, Float (Real), ID
+/**
+ * 1. Create Post Type
+ * 2. Add, id, title, body, and published
+ * 3. Define post query that returns single post
+ * 4. Resolver - return some post data
+ * 5. Test query
+ *
+ */
 
 // Type Definitions
 const typeDefs = `
   type Query {
+    me: User!
+    post: Post!
+    
+  }
+  
+  type User {
+    id: ID!
+    name: String!
+    email: String!
+    age: Int
+  }
+  
+  type Post {
+    id: ID!
     title: String!
-    price: Float!
-    releaseYear: Int
-    rating: Float
-    Stock: Boolean!
+    body: String!
+    published: Boolean!
   }
 `
 
 // Resolvers
 const resolvers = {
   Query: {
-    title () {
-      return 'Socks'
+    me() {
+      return {
+        id: '123058',
+        name: 'Mike',
+        email: 'chuck@me.com',
+        age: 28
+      }
     },
-    price () {
-      return 1.32
-    },
-    releaseYear () {
-      return 2019
-    },
-    rating () {
-      return null
-    },
-    Stock () {
-      return true
+    post() {
+        return {
+          id: '092',
+          title: "Enter the Sandman",
+          body: 'It is an intelligent modification, sir.',
+          published: true
+      }
     }
   }
 }
