@@ -1,54 +1,55 @@
 import { GraphQLServer } from 'graphql-yoga'
 
-/**
- * 1. Create Post Type
- * 2. Add, id, title, body, and published
- * 3. Define post query that returns single post
- * 4. Resolver - return some post data
- * 5. Test query
- *
- */
-
 // Type Definitions
 const typeDefs = `
-  type Query {
-    me: User!
-    post: Post!
-    
-  }
-  
-  type User {
-    id: ID!
-    name: String!
-    email: String!
-    age: Int
-  }
-  
-  type Post {
-    id: ID!
-    title: String!
-    body: String!
-    published: Boolean!
-  }
+    type Query {
+        greeting(name: String, position: String): String!
+        add(a: Float!, b: Float!): Float!
+        me: User!
+        post: Post!
+    }
+
+    type User {
+        id: ID!
+        name: String!
+        email: String!
+        age: Int
+    }
+
+    type Post {
+        id: ID!
+        title: String!
+        body: String!
+        published: Boolean!
+    }
 `
 
 // Resolvers
 const resolvers = {
   Query: {
-    me() {
-      return {
-        id: '123058',
-        name: 'Mike',
-        email: 'chuck@me.com',
-        age: 28
+    greeting (parent, args, ctx, info) {
+      if (args.name && args.position) {
+        return `Hello, ${args.name}! You are my favoriate ${args.position}.`
+      } else {
+        return 'Hello!'
       }
     },
-    post() {
-        return {
-          id: '092',
-          title: "Enter the Sandman",
-          body: 'It is an intelligent modification, sir.',
-          published: true
+    add (parent, args, ctx, info) {
+      return args.a + args.b
+    },
+    me () {
+      return {
+        id: '123098',
+        name: 'Mike',
+        email: 'mike@example.com'
+      }
+    },
+    post () {
+      return {
+        id: '092',
+        title: 'GraphQL 101',
+        body: '',
+        published: false
       }
     }
   }
